@@ -45,7 +45,7 @@ export class OrderService {
       payment: data.payment,
       delivery: data.delivery,
       comments: data.comments,
-      status: data.status,
+      status: "IN_PROGRESS",
       total: data.total
     };
 
@@ -53,9 +53,10 @@ export class OrderService {
       await this.ordersRepo.manager.transaction(
         async (transactionalEntityManager) => {
           await transactionalEntityManager.insert(OrderEntity, order);
+          await transactionalEntityManager.insert(OrderEntity, { ...order, status: "ORDERED" });
         });
     } catch (e) {
-      throw e
+      throw e;
     }
     return order;
   }
