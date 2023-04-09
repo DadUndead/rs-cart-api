@@ -11,7 +11,7 @@ export type CartItem = {
   count: number,
 }
 
-export type Cart = {
+export type UserCart = {
   id: string,
   items: CartItem[],
 }
